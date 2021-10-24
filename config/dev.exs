@@ -72,3 +72,5 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :code_snippet_generator, azure_cognitive_client: Azure.Cognitive
