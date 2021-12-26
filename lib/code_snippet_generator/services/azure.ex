@@ -30,13 +30,20 @@ defmodule Azure do
     end
   end
 
+  def await_read_results(results_url) do
+      {:ok, results} = read_results(results_url)
+
+      case Map.get(results, "status") do
+        "succeeded" -> {:ok, results}
+        "notStarted" -> await_read_results(results_url)
+        "running" -> await_read_results(results_url)
+        _ -> {:error, "Failed to read image"}
+      end
+  end
+
   def analyze_and_read_results(image_url) do
     with {:ok, operation_url} <- read_analyze(image_url),
-      {:ok, results} <- read_results(operation_url) do
-        # Check status notStarted: The operation has not started.
-        # running: The operation is being processed.
-        # failed: The operation has failed.
-        # succeeded: The operation has succeeded.
+      {:ok, results} <- await_read_results(operation_url) do
         {:ok, results}
     else
       _ ->
