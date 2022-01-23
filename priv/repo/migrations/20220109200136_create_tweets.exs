@@ -1,7 +1,11 @@
 defmodule CodeSnippetGenerator.Repo.Migrations.CreateTweets do
   use Ecto.Migration
+  @disable_ddl_transaction true
+  @disable_migration_lock true
 
   def change do
+    StatusEnum.create_type
+
     create table(:tweets) do
       add :twitter_user_id, :string
       add :author, :string
@@ -10,8 +14,12 @@ defmodule CodeSnippetGenerator.Repo.Migrations.CreateTweets do
       add :lang, :string
       add :text, :string
       add :media, {:array, :string}
+      add :status, StatusEnum.type()
+      add :result, :string
 
       timestamps()
     end
+
+    create index("tweets", [:tweet_id], unique: true, concurrently: true)
   end
 end

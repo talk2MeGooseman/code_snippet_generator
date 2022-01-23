@@ -38,6 +38,7 @@ defmodule CodeSnippetGenerator.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ecto_extras, "~> 0.1.3"},
       {:ecto_sql, "~> 3.6"},
+      {:ecto_enum, "~> 1.4"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:extwitter, "~> 0.12"},
@@ -59,6 +60,7 @@ defmodule CodeSnippetGenerator.MixProject do
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:timex, "~>3.7.6"}
     ]
   end
 

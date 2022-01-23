@@ -14,7 +14,7 @@
 			"previewLimit": 50,
 			"server": "localhost",
 			"port": 5432,
-			"database": "postgres",
+			"database": "code_snippet_generator_dev",
 			"username": "postgres",
 			"password": "postgres"
 		}]
