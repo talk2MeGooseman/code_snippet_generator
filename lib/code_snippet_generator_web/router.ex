@@ -18,6 +18,13 @@ defmodule CodeSnippetGeneratorWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/snippets", SnippetLive.Index, :index
+    live "/snippets/new", SnippetLive.Index, :new
+    live "/snippets/:id/edit", SnippetLive.Index, :edit
+
+    live "/snippets/:id", SnippetLive.Show, :show
+    live "/snippets/:id/show/edit", SnippetLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

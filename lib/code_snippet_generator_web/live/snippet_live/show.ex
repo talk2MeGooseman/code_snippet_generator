@@ -16,6 +16,15 @@ defmodule CodeSnippetGeneratorWeb.SnippetLive.Show do
      |> assign(:snippet, Generator.get_snippet!(id))}
   end
 
+  @spec display_code(any) :: binary
+  def display_code(result) do
+    get_in(result, ["analyzeResult", "readResults"])
+    |> List.first()
+    |> get_in(["lines"])
+    |> Enum.map(fn line -> get_in(line, ["text"]) end)
+    |> Enum.join("\n")
+  end
+
   defp page_title(:show), do: "Show Snippet"
   defp page_title(:edit), do: "Edit Snippet"
 end

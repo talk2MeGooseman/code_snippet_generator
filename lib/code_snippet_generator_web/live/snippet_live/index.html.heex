@@ -22,7 +22,6 @@
     <%= for snippet <- @snippets do %>
       <tr id={"snippet-#{snippet.id}"}>
         <td><%= snippet.status %></td>
-        <td><%= snippet.result %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.snippet_show_path(@socket, :show, snippet) %></span>
