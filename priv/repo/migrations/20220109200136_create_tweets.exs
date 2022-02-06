@@ -14,8 +14,6 @@ defmodule CodeSnippetGenerator.Repo.Migrations.CreateTweets do
       add :lang, :string
       add :text, :string
       add :media, {:array, :string}
-      add :status, StatusEnum.type()
-      add :result, :map
 
       timestamps()
     end

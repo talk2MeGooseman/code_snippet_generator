@@ -10,8 +10,8 @@ defmodule CodeSnippetGenerator.Twitter.Tweet do
     field :text, :string
     field :tweet_id, :string
     field :twitter_user_id, :string
-    field :status, StatusEnum, default: :not_started
-    field :result, :map
+
+    has_one :snippet, CodeSnippetGenerator.Generator.Snippet
 
     timestamps()
   end
@@ -19,7 +19,7 @@ defmodule CodeSnippetGenerator.Twitter.Tweet do
   @doc false
   def changeset(tweet, attrs) do
     tweet
-    |> cast(attrs, [:twitter_user_id, :author, :sent_on, :tweet_id, :lang, :text, :media, :status, :result])
+    |> cast(attrs, [:twitter_user_id, :author, :sent_on, :tweet_id, :lang, :text, :media])
     |> validate_required([:twitter_user_id, :author, :tweet_id, :lang, :text, :media])
   end
 end

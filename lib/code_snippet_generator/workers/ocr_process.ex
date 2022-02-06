@@ -1,6 +1,8 @@
 defmodule CodeSnippetGenerator.Workers.OcrProcess do
   use Oban.Worker, queue: :default
 
+  alias CodeSnippetGenerator.Generator
+
   # %{id: 1} |> CodeSnippetGenerator.Workers.OcrProcess.new(schedule_in: 5) |> Oban.insert()
 
   @impl Oban.Worker
@@ -17,12 +19,13 @@ defmodule CodeSnippetGenerator.Workers.OcrProcess do
     :ok
   end
 
-  def analyze(record) do
-    image = List.first(record.media)
+  def analyze(tweet) do
+    image = List.first(tweet.media)
+    {:ok, snippet} = Generator.create_snippet(%{ tweet_id: tweet.id })
 
     case Azure.analyze_and_read_results(image) do
       {:ok, ocr_response} ->
-        CodeSnippetGenerator.Twitter.update_tweet(record, %{
+        Generator.update_snippet(snippet, %{
           result: ocr_response,
           status: :success
         })
@@ -32,7 +35,7 @@ defmodule CodeSnippetGenerator.Workers.OcrProcess do
       {:error, message} ->
         IO.puts("Error happended during OCR Request")
 
-        CodeSnippetGenerator.Twitter.update_tweet(record, %{
+        Generator.update_snippet(snippet, %{
           status: :error,
           result: %{message: message}
         })
