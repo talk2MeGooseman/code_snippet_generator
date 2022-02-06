@@ -38,6 +38,21 @@ defmodule CodeSnippetGenerator.Twitter do
   def get_tweet!(id), do: Repo.get!(Tweet, id)
 
   @doc """
+  Gets a single tweet.
+
+  ## Examples
+
+      iex> get_tweet(123)
+      %Tweet{}
+
+      iex> get_tweet(456)
+      nil
+
+  """
+  @spec get_tweet(any()) :: %Tweet{} | nil
+  def get_tweet(id), do: Repo.get(Tweet, id)
+
+  @doc """
   Creates a tweet.
 
   ## Examples

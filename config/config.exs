@@ -54,6 +54,11 @@ config :extwitter, :oauth, [
   access_token_secret: System.get_env("TWITTER_SECRET")
 ]
 
+config :code_snippet_generator, Oban,
+  repo: CodeSnippetGenerator.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

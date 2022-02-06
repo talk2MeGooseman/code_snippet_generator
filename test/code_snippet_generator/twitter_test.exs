@@ -8,7 +8,16 @@ defmodule CodeSnippetGenerator.TwitterTest do
 
     import CodeSnippetGenerator.TwitterFixtures
 
-    @invalid_attrs %{author: nil, lang: nil, media: nil, sent_on: nil, text: nil, tweet_id: nil, twitter_user_id: nil}
+    @invalid_attrs %{
+      author: nil,
+      lang: nil,
+      media: nil,
+      sent_on: nil,
+      text: nil,
+      tweet_id: nil,
+      twitter_user_id: nil,
+      status: nil
+    }
 
     test "list_tweets/0 returns all tweets" do
       tweet = tweet_fixture()
@@ -21,7 +30,16 @@ defmodule CodeSnippetGenerator.TwitterTest do
     end
 
     test "create_tweet/1 with valid data creates a tweet" do
-      valid_attrs = %{author: "some author", lang: "some lang", media: [], sent_on: ~U[2022-01-08 20:01:00Z], text: "some text", tweet_id: "some tweet_id", twitter_user_id: "some twitter_user_id"}
+      valid_attrs = %{
+        author: "some author",
+        lang: "some lang",
+        media: [],
+        sent_on: ~U[2022-01-08 20:01:00Z],
+        text: "some text",
+        tweet_id: "some tweet_id",
+        twitter_user_id: "some twitter_user_id",
+        stauts: :not_started
+      }
 
       assert {:ok, %Tweet{} = tweet} = Twitter.create_tweet(valid_attrs)
       assert tweet.author == "some author"
@@ -39,7 +57,17 @@ defmodule CodeSnippetGenerator.TwitterTest do
 
     test "update_tweet/2 with valid data updates the tweet" do
       tweet = tweet_fixture()
-      update_attrs = %{author: "some updated author", lang: "some updated lang", media: [], sent_on: ~U[2022-01-09 20:01:00Z], text: "some updated text", tweet_id: "some updated tweet_id", twitter_user_id: "some updated twitter_user_id"}
+
+      update_attrs = %{
+        author: "some updated author",
+        lang: "some updated lang",
+        media: [],
+        sent_on: ~U[2022-01-09 20:01:00Z],
+        text: "some updated text",
+        tweet_id: "some updated tweet_id",
+        twitter_user_id: "some updated twitter_user_id",
+        status: :processing
+      }
 
       assert {:ok, %Tweet{} = tweet} = Twitter.update_tweet(tweet, update_attrs)
       assert tweet.author == "some updated author"

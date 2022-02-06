@@ -17,7 +17,8 @@ defmodule CodeSnippetGenerator.TwitterFixtures do
         sent_on: ~U[2022-01-08 20:01:00Z],
         text: "some text",
         tweet_id: "some tweet_id",
-        twitter_user_id: "some twitter_user_id"
+        twitter_user_id: "some twitter_user_id",
+        status: :not_started
       })
       |> CodeSnippetGenerator.Twitter.create_tweet()
 

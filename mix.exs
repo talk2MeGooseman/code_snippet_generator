@@ -48,6 +48,7 @@ defmodule CodeSnippetGenerator.MixProject do
       {:jason, "~> 1.2"},
       {:mox, "~> 1.0.0"},
       {:oauther, "~> 1.1"},
+      {:oban, "~> 2.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_dashboard, "~> 0.5"},

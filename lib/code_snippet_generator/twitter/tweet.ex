@@ -11,7 +11,7 @@ defmodule CodeSnippetGenerator.Twitter.Tweet do
     field :tweet_id, :string
     field :twitter_user_id, :string
     field :status, StatusEnum, default: :not_started
-    field :result, :string
+    field :result, :map
 
     timestamps()
   end

@@ -15,9 +15,10 @@ defmodule CodeSnippetGenerator.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CodeSnippetGenerator.PubSub},
       # Start the Endpoint (http/https)
-      CodeSnippetGeneratorWeb.Endpoint
+      CodeSnippetGeneratorWeb.Endpoint,
       # Start a worker by calling: CodeSnippetGenerator.Worker.start_link(arg)
       # {CodeSnippetGenerator.Worker, arg}
+      {Oban, oban_config()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -32,5 +33,10 @@ defmodule CodeSnippetGenerator.Application do
   def config_change(changed, _new, removed) do
     CodeSnippetGeneratorWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  # Conditionally disable queues or plugins here.
+  defp oban_config do
+    Application.fetch_env!(:code_snippet_generator, Oban)
   end
 end

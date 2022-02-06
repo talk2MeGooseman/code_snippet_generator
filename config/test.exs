@@ -30,3 +30,5 @@ config :logger, level: :warn
 config :phoenix, :plug_init_mode, :runtime
 
 config :code_snippet_generator, azure_cognitive_client: Azure.MockCognitive
+
+config :my_app, Oban, queues: false, plugins: false
