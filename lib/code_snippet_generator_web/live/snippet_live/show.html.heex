@@ -9,19 +9,42 @@
     return_to: Routes.snippet_show_path(@socket, :show, @snippet) %>
 <% end %>
 
-<ul>
+<div id="tweet-embed">
+  <%= @snippet.tweet.text %>
+</div>
 
-  <li>
-    <strong>Status:</strong>
-    <%= @snippet.status %>
-  </li>
 
-  <li>
-    <strong>Result:</strong>
-    <%= display_code(@snippet.result) %>
-  </li>
-
-</ul>
+<pre class="display-code">
+  <code class="display-code">
+  <%= display_code(@snippet.result) %>
+  </code>
+</pre>
 
 <span><%= live_patch "Edit", to: Routes.snippet_show_path(@socket, :edit, @snippet), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.snippet_index_path(@socket, :index) %></span>
+
+<script>
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+window.addEventListener('load', function(event) {
+  twttr.widgets.createTweet(
+    "<%= @snippet.tweet.tweet_id %>",
+    document.getElementById('tweet-embed')
+  );
+});
+</script>

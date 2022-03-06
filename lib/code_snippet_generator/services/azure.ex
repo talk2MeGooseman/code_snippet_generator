@@ -42,16 +42,14 @@ defmodule Azure do
 
   @spec analyze_and_read_results(String.t()) :: {:error, String.t()} | {:ok, map}
   def analyze_and_read_results(image_url) do
-    try do
-      with {:ok, operation_url} <- read_analyze(image_url),
-           {:ok, results} <- await_read_results(operation_url) do
-        {:ok, results}
-      else
-        _ ->
-          {:error, "Failed to read image"}
-      end
-    catch
-      RuntimeError -> IO.puts("Error!!!")
+    with {:ok, operation_url} <- read_analyze(image_url),
+          {:ok, results} <- await_read_results(operation_url) do
+      {:ok, results}
+    else
+      _ ->
+        {:error, "Failed to read image"}
     end
+  catch
+    RuntimeError -> IO.puts("Error!!!")
   end
 end
