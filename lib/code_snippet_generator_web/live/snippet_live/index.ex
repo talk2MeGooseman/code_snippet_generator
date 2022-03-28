@@ -1,5 +1,6 @@
 defmodule CodeSnippetGeneratorWeb.SnippetLive.Index do
-  use CodeSnippetGeneratorWeb, :live_view
+  use CodeSnippetGeneratorWeb, :surface_view
+  alias Surface.Components.{LiveRedirect, LivePatch, Link}
 
   alias CodeSnippetGenerator.Generator
   alias CodeSnippetGenerator.Generator.Snippet

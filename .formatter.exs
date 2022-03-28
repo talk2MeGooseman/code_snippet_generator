@@ -1,6 +1,11 @@
 [
-  plugins: [HeexFormatter],
-  import_deps: [:ecto, :phoenix],
-  inputs: ["*.{heex,ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{heex,ex,exs}"],
+  plugins: [HeexFormatter, Surface.Formatter.Plugin],
+  import_deps: [:ecto, :phoenix, :surface],
+  inputs: [
+  "*.{heex,ex,exs}",
+  "priv/*/seeds.exs",
+  "{config,lib,test}/**/*.{heex,ex,exs}",
+  "{lib,test}/**/*.sface"
+],
   subdirectories: ["priv/*/migrations"]
 ]

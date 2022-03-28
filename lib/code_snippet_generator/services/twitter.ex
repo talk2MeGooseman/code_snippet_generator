@@ -1,9 +1,4 @@
 defmodule Twitter do
-  def analyze(tweet_id) do
-    tweet = ExTwitter.show(tweet_id, include_entities: true)
-    maybe_analyze_tweet(tweet)
-  end
-
   def read_stream_media(track) do
     stream = ExTwitter.stream_filter(track: track)
 
@@ -11,6 +6,11 @@ defmodule Twitter do
           stream do
       maybe_analyze_tweet(tweet)
     end
+  end
+
+  def analyze(tweet_id) do
+    tweet = ExTwitter.show(tweet_id, include_entities: true)
+    maybe_analyze_tweet(tweet)
   end
 
   defp maybe_analyze_tweet(%ExTwitter.Model.Tweet{} = tweet)

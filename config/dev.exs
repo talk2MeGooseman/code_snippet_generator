@@ -25,7 +25,8 @@ config :code_snippet_generator, CodeSnippetGeneratorWeb.Endpoint,
   secret_key_base: "GxUEK7KKje8VjlvMjKHRSulh5gSHgEAqDPCVkToGTFHwdo3pa8aDwM2NMFSza1RX",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -54,12 +55,14 @@ config :code_snippet_generator, CodeSnippetGeneratorWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :code_snippet_generator, CodeSnippetGeneratorWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/code_snippet_generator_web/(live|views)/.*(ex)$",
-      ~r"lib/code_snippet_generator_web/templates/.*(eex)$"
+      ~r"lib/code_snippet_generator_web/(live|views|components)/.*(ex|sface|js)$",
+      ~r"lib/code_snippet_generator_web/templates/.*(eex)$",
+      ~r"priv/catalogue/.*(ex)$"
     ]
   ]
 

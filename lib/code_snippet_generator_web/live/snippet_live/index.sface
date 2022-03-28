@@ -1,0 +1,37 @@
+<h1>Listing Snippets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Result</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="snippets">
+    {#for snippet <- @snippets}
+      <tr id={"snippet-#{snippet.id}"}>
+        <td>{snippet.status}</td>
+
+        <td>
+          <span>
+            <LiveRedirect label="Show" to={Routes.snippet_show_path(@socket, :show, snippet)} />
+          </span>
+          <span><LivePatch label="Edit" to={Routes.snippet_index_path(@socket, :edit, snippet)} /></span>
+          <span>
+            <Link
+              label="Delete"
+              to="#"
+              method={:delete}
+              value={[snippet.id]}
+              opts={data: [confirm: "Are you sure?"]}
+            />
+          </span>
+        </td>
+      </tr>
+    {/for}
+  </tbody>
+</table>
+
+<span><LivePatch label="New Snippet" to={Routes.snippet_index_path(@socket, :new)} /></span>

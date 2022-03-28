@@ -11,7 +11,7 @@ services:
         # Phoenix Version: 1.4.17, 1.5.4, ...
         PHOENIX_VERSION: "1.6.2"
         # Node Version: 10, 11, ...
-        NODE_VERSION: "none"
+        NODE_VERSION: "16.14.2"
 
     init: true
 

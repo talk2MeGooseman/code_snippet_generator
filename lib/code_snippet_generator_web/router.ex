@@ -1,6 +1,8 @@
 defmodule CodeSnippetGeneratorWeb.Router do
   use CodeSnippetGeneratorWeb, :router
 
+  import Surface.Catalogue.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -25,6 +27,7 @@ defmodule CodeSnippetGeneratorWeb.Router do
 
     live "/snippets/:id", SnippetLive.Show, :show
     live "/snippets/:id/show/edit", SnippetLive.Show, :edit
+    live "/demo", Demo
   end
 
   # Other scopes may use custom stacks.
@@ -57,6 +60,13 @@ defmodule CodeSnippetGeneratorWeb.Router do
       pipe_through :browser
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      surface_catalogue "/catalogue"
     end
   end
 end
