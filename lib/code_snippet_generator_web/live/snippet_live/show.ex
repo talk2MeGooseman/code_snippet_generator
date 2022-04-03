@@ -6,6 +6,28 @@ defmodule CodeSnippetGeneratorWeb.SnippetLive.Show do
   alias CodeSnippetGenerator.{Generator, Repo}
 
   @impl true
+  def render(assigns) do
+    ~F"""
+    <h1>Show Snippet</h1>
+
+    <Tweet tweet={@snippet.tweet} />
+
+
+    <Code code={@snippet.result} />
+
+    <span><LivePatch label="Edit" to={Routes.snippet_show_path(@socket, :edit, @snippet)} /></span>
+    <span><LiveRedirect label="Back" to={Routes.snippet_index_path(@socket, :index)} /></span>
+
+
+    <script>
+    window.addEventListener('load', function(event) {
+
+    });
+    </script>
+    """
+  end
+
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
