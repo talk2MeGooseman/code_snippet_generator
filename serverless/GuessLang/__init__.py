@@ -1,4 +1,5 @@
 import logging
+import json
 from guesslang import Guess
 import azure.functions as func
 
@@ -9,7 +10,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     except ValueError:
         return func.HttpResponse(
             "JSON Parse Error",
-            status_code=200
+            status_code=400
         )
     else:
         code = req_body.get('code')
@@ -17,10 +18,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         if code:
             guess = Guess()
             name = guess.language_name(code)
+            json_data = {
+                'language': name,
+            }
 
-            return func.HttpResponse(f"Language: {name}", status_code=200)
+            return func.HttpResponse(json.dumps(json_data), status_code=200, content_type="application/json")
         else:
             return func.HttpResponse(
                 "No code provided in the query string parameter 'code'",
-                status_code=200
+                status_code=400
             )
