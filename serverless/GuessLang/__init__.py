@@ -22,7 +22,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 'language': name,
             }
 
-            return func.HttpResponse(json.dumps(json_data), status_code=200, content_type="application/json")
+            return func.HttpResponse(json.dumps(json_data), status_code=200)
         else:
             return func.HttpResponse(
                 "No code provided in the query string parameter 'code'",
