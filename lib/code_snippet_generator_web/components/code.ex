@@ -12,6 +12,7 @@ defmodule CodeSnippetGeneratorWeb.Components.Code do
     <div :hook="Code">
     </div>
     <pre id="display-code" style="display: none;">{display_code(@code)}</pre>
+    <pre id="display-code" style="display: none;">{@code}</pre>
     """
   end
 

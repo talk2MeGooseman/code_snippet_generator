@@ -4,6 +4,7 @@ defmodule CodeSnippetGenerator.Generator.Snippet do
 
   schema "snippets" do
     field :result, :map
+    field :language, :string
     field :status, StatusEnum, default: :not_started
     belongs_to :tweet, CodeSnippetGenerator.Twitter.Tweet
 
@@ -13,7 +14,8 @@ defmodule CodeSnippetGenerator.Generator.Snippet do
   @doc false
   def changeset(snippet, attrs) do
     snippet
-    |> cast(attrs, [:status, :result, :tweet_id])
+    |> cast(attrs, [:status, :result, :tweet_id, :language])
     |> validate_required([:status, :tweet_id])
+    |> unique_constraint([:tweet_id])
   end
 end

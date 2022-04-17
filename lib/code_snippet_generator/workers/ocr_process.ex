@@ -25,8 +25,16 @@ defmodule CodeSnippetGenerator.Workers.OcrProcess do
 
     case Azure.analyze_and_read_results(image) do
       {:ok, ocr_response} ->
+        code = lines_of_code(ocr_response)
+
+        language = case Serverless.guess_language(code) do
+          {:ok, response} -> Map.get(response, "language")
+          {:error, _} -> "unknown"
+        end
+
         Generator.update_snippet(snippet, %{
           result: ocr_response,
+          language: language,
           status: :success
         })
 
@@ -42,5 +50,13 @@ defmodule CodeSnippetGenerator.Workers.OcrProcess do
 
         :ok
     end
+  end
+
+  def lines_of_code(result) do
+    get_in(result, ["analyzeResult", "readResults"])
+    |> List.first()
+    |> get_in(["lines"])
+    |> Enum.map(fn line -> get_in(line, ["text"]) end)
+    |> Enum.join(" ")
   end
 end

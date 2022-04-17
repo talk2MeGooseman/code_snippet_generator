@@ -7,6 +7,7 @@ defmodule CodeSnippetGenerator.Repo.Migrations.CreateSnippets do
     create table(:snippets) do
       add :status, StatusEnum.type()
       add :result, :map
+      add :language, :string
       add :tweet_id, references(:tweets, on_delete: :nothing)
 
       timestamps()
